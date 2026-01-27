@@ -70,11 +70,50 @@ export const getJobById = async (req, res) => {
   }
 };
 
-
 export const getAllJobs = async (req, res) => {
   try {
-    const jobs = await Job.find().sort({ createdAt: -1 });
-    res.json(jobs);
+    const {
+      keyword,
+      location,
+      jobType,
+      skills,
+      page = 1,
+      limit = 5,
+    } = req.query;
+
+    let query = {};
+
+    if (keyword) {
+      query.title = { $regex: keyword, $options: "i" };
+    }
+
+    if (location) {
+      query.location = { $regex: location, $options: "i" };
+    }
+
+    if (jobType) {
+      query.jobType = jobType;
+    }
+
+    if (skills) {
+      query.skills = { $regex: skills, $options: "i" };
+    }
+
+    const skip = (page - 1) * limit;
+
+    const totalJobs = await Job.countDocuments(query);
+
+    const jobs = await Job.find(query)
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(Number(limit));
+
+    res.json({
+      jobs,
+      totalJobs,
+      totalPages: Math.ceil(totalJobs / limit),
+      currentPage: Number(page),
+    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
