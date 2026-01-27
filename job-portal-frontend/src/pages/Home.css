@@ -1,0 +1,27 @@
+.hero-section {
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+}
+
+.hero-title {
+  font-size: 3rem;
+  font-weight: 700;
+}
+
+.hero-subtitle {
+  font-size: 1.2rem;
+  color: #6c757d;
+  margin-top: 15px;
+}
+
+.hero-buttons .btn {
+  padding: 12px 28px;
+  font-size: 1rem;
+  border-radius: 30px;
+}
+
+.hero-image {
+  width: 100%;
+  max-width: 450px;
+}

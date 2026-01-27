@@ -1,0 +1,17 @@
+.apply-container {
+  max-width: 600px;
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.apply-title {
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.apply-subtitle {
+  color: #6c757d;
+  margin-bottom: 20px;
+}

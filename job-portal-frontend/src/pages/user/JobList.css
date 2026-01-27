@@ -1,0 +1,36 @@
+.job-card {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.job-title {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.job-company {
+  color: #6c757d;
+  font-size: 0.95rem;
+}
+
+.job-meta {
+  font-size: 0.85rem;
+  color: #6c757d;
+}
+
+.apply-btn {
+  margin-top: 10px;
+}
+.job-skills {
+  font-size: 0.9rem;
+  color: #495057;
+}
+
+.job-description {
+  font-size: 0.9rem;
+  color: #6c757d;
+  line-height: 1.4;
+}

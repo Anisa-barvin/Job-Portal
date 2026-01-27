@@ -1,0 +1,46 @@
+.register-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(120deg, #f8f9fa, #e9ecef);
+}
+
+.register-card {
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+
+
+.register-title {
+  font-weight: 700;
+  padding-top: 30px;
+}
+
+.register-subtitle {
+  color: #6c757d;
+  font-size: 0.95rem;
+}
+
+.form-control,
+.form-select {
+  padding: 12px;
+  border-radius: 8px;
+}
+
+.register-btn {
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.register-right {
+  background-color: #f1f5ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.register-right img {
+  max-width: 80%;
+}
