@@ -109,6 +109,8 @@ function JobList({ filters }) {
   const [jobs, setJobs] = useState([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [savedJobs, setSavedJobs] = useState([]);
+
   const navigate = useNavigate();
 
   const fetchJobs = async () => {
@@ -127,10 +129,24 @@ function JobList({ filters }) {
       alert("Failed to load jobs"+(error.response?.data?.message || ""));
     }
   };
+const fetchSavedJobs = async () => {
+  const res = await API.get("/users/saved");
+  setSavedJobs(res.data.map((job) => job._id));
+};
+
+ const toggleSave = async (jobId) => {
+    try {
+      await API.post(`/users/save/${jobId}`);
+      fetchSavedJobs(); // refresh saved jobs
+    } catch (error) {
+      alert("Failed to save job"+(error.response?.data?.message || ""));
+    }
+  };
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchJobs();
+      fetchSavedJobs();
   }, [filters, page]);
 
   return (
@@ -179,6 +195,17 @@ function JobList({ filters }) {
           >
             Apply Now
           </button>
+          <button
+  className={`btn btn-sm ${
+    savedJobs.includes(job._id)
+      ? "btn-danger"
+      : "btn-outline-danger"
+  }`}
+  onClick={() => toggleSave(job._id)}
+>
+  {savedJobs.includes(job._id) ? "♥ Saved" : "♡ Save"}
+</button>
+
         </div>
       ))}
 

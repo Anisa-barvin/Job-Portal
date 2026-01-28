@@ -74,6 +74,8 @@ import { useState } from "react";
   import BrowseJobs from "./BrowseJobs"; 
   import MyApplications from "./MyApplications"; 
   import Profile from "./Profile"; 
+  import SavedJobs from "./SavedJobs";
+
 
   function UserDashboard() { 
     const [active, setActive] = useState("dashboard"); 
@@ -87,6 +89,8 @@ import { useState } from "react";
           case "browse": return <BrowseJobs />; 
           case "applications": return <MyApplications />; 
           case "profile": return <Profile />; 
+          case "saved":return <SavedJobs />;
+
           default: return <DashboardHome />;
          } }; 
          
@@ -106,6 +110,8 @@ import { useState } from "react";
                 <button onClick={() => setActive("browse")}>Browse Jobs</button> 
                 <button onClick={() => setActive("applications")}>My Applications</button> 
                 <button onClick={() => setActive("profile")}>Profile</button>
+                <button onClick={() => setActive("saved")}> Saved Jobs</button>
+
                  <button onClick={handleLogout} className="text-danger"> Logout </button> 
                  
                  </div> {/* MAIN CONTENT */}
