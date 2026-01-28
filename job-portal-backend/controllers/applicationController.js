@@ -2,6 +2,9 @@ import Application from "../models/Application.js";
 import Job from "../models/Job.js";
 import User from "../models/User.js";
 import sendEmail from "../utils/sendEmail.js";
+import applicationSubmittedTemplate from "../utils/emailTemplates/applicationSubmitted.js";
+import newApplicationTemplate from "../utils/emailTemplates/newApplication.js";
+import applicationStatusTemplate from "../utils/emailTemplates/applicationStatus.js";
 
 // export const applyJob = async (req, res) => {
 //   try {
@@ -57,20 +60,31 @@ export const applyJob = async (req, res) => {
     const user = await User.findById(req.user.id);
     const job = await Job.findById(jobId).populate("postedBy", "email");
 
-    // Email to User
-    await sendEmail(
-      user.email,
-      "Job Application Submitted",
-      `You have successfully applied for the job: ${job.title}`
-    );
+    // // Email to User
+    // await sendEmail(
+    //   user.email,
+    //   "Job Application Submitted",
+    //   `You have successfully applied for the job: ${job.title}`
+    // );
 
-    // Email to Recruiter
-    await sendEmail(
-      job.postedBy.email,
-      "New Job Application",
-      `A new candidate has applied for your job: ${job.title}`
-    );
+    // // Email to Recruiter
+    // await sendEmail(
+    //   job.postedBy.email,
+    //   "New Job Application",
+    //   `A new candidate has applied for your job: ${job.title}`
+    // );
 
+    await sendEmail(
+  user.email,
+  "Application Submitted",
+  applicationSubmittedTemplate(user.name, job.title)
+);
+
+await sendEmail(
+  job.postedBy.email,
+  "New Job Application",
+  newApplicationTemplate(job.title, user.name)
+);
     res.status(201).json({ message: "Applied successfully" });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -143,7 +157,15 @@ export const updateApplicationStatus = async (req, res) => {
         ? `Congratulations! You have been selected for the job: ${application.job.title}`
         : `Unfortunately, your application for ${application.job.title} was not selected.`;
 
-    await sendEmail(application.user.email, subject, message);
+   await sendEmail(
+  application.user.email,
+  "Application Status Update",
+  applicationStatusTemplate(
+    application.user.name,
+    application.job.title,
+    status
+  )
+);
 
     res.json({ message: `Application ${status}` });
   } catch (error) {
