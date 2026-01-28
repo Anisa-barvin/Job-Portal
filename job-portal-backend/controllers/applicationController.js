@@ -268,3 +268,49 @@ export const getRecruiterDashboardStats = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+
+export const getRecruiterChartStats = async (req, res) => {
+  try {
+    // Jobs posted by recruiter
+    const jobs = await Job.find({ postedBy: req.user.id });
+
+    // Applications per job (bar chart)
+    const applicationsPerJob = await Promise.all(
+      jobs.map(async (job) => {
+        const count = await Application.countDocuments({ job: job._id });
+        return {
+          jobTitle: job.title,
+          applications: count,
+        };
+      })
+    );
+
+    // Status distribution (pie chart)
+    const accepted = await Application.countDocuments({
+      status: "accepted",
+      job: { $in: jobs.map((j) => j._id) },
+    });
+
+    const rejected = await Application.countDocuments({
+      status: "rejected",
+      job: { $in: jobs.map((j) => j._id) },
+    });
+
+    const pending = await Application.countDocuments({
+      status: "pending",
+      job: { $in: jobs.map((j) => j._id) },
+    });
+
+    res.json({
+      applicationsPerJob,
+      statusDistribution: [
+        { name: "Accepted", value: accepted },
+        { name: "Rejected", value: rejected },
+        { name: "Pending", value: pending },
+      ],
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};

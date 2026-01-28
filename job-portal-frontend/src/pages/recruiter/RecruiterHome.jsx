@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import API from "../../services/api";
+import RecruiterDashboardCharts from "../../components/RecruiterDashboardCharts";
 
 function RecruiterHome() {
   const [stats, setStats] = useState(null);
@@ -55,6 +56,8 @@ function RecruiterHome() {
             <h3 className="text-warning">{stats.pending}</h3>
           </div>
         </div>
+        <RecruiterDashboardCharts />
+
       </div>
     </>
   );

@@ -2,6 +2,7 @@ import express from "express";
 import { applyJob,getApplicantsByJob,updateApplicationStatus, getMyApplications,getRecruiterApplications,getUserDashboardStats,getRecruiterDashboardStats, } from "../controllers/applicationController.js";
 import protect from "../middleware/authMiddleware.js";
 import resumeUpload from "../middleware/resumeUpload.js";
+import { getRecruiterChartStats } from "../controllers/applicationController.js";
 
 const router = express.Router();
 
@@ -12,6 +13,10 @@ router.get("/my", protect, getMyApplications);
 router.get("/recruiter", protect, getRecruiterApplications);
 router.get("/stats/user", protect, getUserDashboardStats);
 router.get("/stats/recruiter", protect, getRecruiterDashboardStats);
-
+router.get(
+  "/stats/recruiter/charts",
+  protect,
+  getRecruiterChartStats
+);
 
 export default router;
