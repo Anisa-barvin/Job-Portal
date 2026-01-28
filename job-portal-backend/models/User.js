@@ -29,6 +29,9 @@ const userSchema = new mongoose.Schema(
     ref: "Job",
   },
 ],
+resetPasswordToken: String,
+resetPasswordExpire: Date,
+
 
   },
   

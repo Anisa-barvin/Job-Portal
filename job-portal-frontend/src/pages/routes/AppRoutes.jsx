@@ -6,7 +6,8 @@ import UserDashboard from "../user/UserDashboard";
 import RecruiterDashboard from "../recruiter/RecruiterDashboard";
 import ApplyJob from "../user/ApplyJob";
 import JobDetails from "../recruiter/JobDetails";
-
+import ForgotPassword from "../auth/ForgotPassword";
+import ResetPassword from "../auth/ResetPassword"; 
 function AppRoutes() {
   return (
     <Routes>
@@ -17,6 +18,8 @@ function AppRoutes() {
       <Route path="/recruiter/dashboard" element={<RecruiterDashboard />} />
       <Route path="/user/apply/:id" element={<ApplyJob />} />
       <Route path="/recruiter/jobs/:id" element={<JobDetails />} />
+      <Route path="/forgot-password" element={<ForgotPassword />} />
+<Route path="/reset-password/:token" element={<ResetPassword />} />
 
     </Routes>
   );
