@@ -1,35 +1,81 @@
 import Application from "../models/Application.js";
 import Job from "../models/Job.js";
+import User from "../models/User.js";
+import sendEmail from "../utils/sendEmail.js";
+
+// export const applyJob = async (req, res) => {
+//   try {
+//     const applicationExists = await Application.findOne({
+//       job: req.body.jobId,
+//       user: req.user.id,
+//     });
+
+//     if (applicationExists) {
+//       return res.status(400).json({
+//         message: "You have already applied for this job",
+//       });
+//     }
+
+//     const application = new Application({
+//       job: req.body.jobId,
+//       user: req.user.id,
+//       resume: `/uploads/resumes/${req.file.filename}`,
+//     });
+
+//     await application.save();
+
+//     res.status(201).json({
+//       message: "Job applied successfully",
+//     });
+//   } catch (error) {
+//     res.status(500).json({ message: error.message });
+//   }
+// };
 
 export const applyJob = async (req, res) => {
   try {
-    const applicationExists = await Application.findOne({
-      job: req.body.jobId,
+    const { jobId } = req.body;
+
+    const existing = await Application.findOne({
+      job: jobId,
       user: req.user.id,
     });
 
-    if (applicationExists) {
-      return res.status(400).json({
-        message: "You have already applied for this job",
-      });
+    if (existing) {
+      return res.status(400).json({ message: "Already applied" });
     }
 
     const application = new Application({
-      job: req.body.jobId,
+      job: jobId,
       user: req.user.id,
       resume: `/uploads/resumes/${req.file.filename}`,
     });
 
     await application.save();
 
-    res.status(201).json({
-      message: "Job applied successfully",
-    });
+    // 🔔 EMAIL NOTIFICATIONS
+    const user = await User.findById(req.user.id);
+    const job = await Job.findById(jobId).populate("postedBy", "email");
+
+    // Email to User
+    await sendEmail(
+      user.email,
+      "Job Application Submitted",
+      `You have successfully applied for the job: ${job.title}`
+    );
+
+    // Email to Recruiter
+    await sendEmail(
+      job.postedBy.email,
+      "New Job Application",
+      `A new candidate has applied for your job: ${job.title}`
+    );
+
+    res.status(201).json({ message: "Applied successfully" });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
-
 
 export const getApplicantsByJob = async (req, res) => {
   try {
@@ -46,15 +92,38 @@ export const getApplicantsByJob = async (req, res) => {
 };
 
 
+// export const updateApplicationStatus = async (req, res) => {
+//   const { status } = req.body;
+
+//   if (!["accepted", "rejected"].includes(status)) {
+//     return res.status(400).json({ message: "Invalid status" });
+//   }
+
+//   try {
+//     const application = await Application.findById(req.params.id);
+
+//     if (!application) {
+//       return res.status(404).json({ message: "Application not found" });
+//     }
+
+//     application.status = status;
+//     await application.save();
+
+//     res.json({
+//       message: `Application ${status} successfully`,
+//     });
+//   } catch (error) {
+//     res.status(500).json({ message: error.message });
+//   }
+// };
+
 export const updateApplicationStatus = async (req, res) => {
   const { status } = req.body;
 
-  if (!["accepted", "rejected"].includes(status)) {
-    return res.status(400).json({ message: "Invalid status" });
-  }
-
   try {
-    const application = await Application.findById(req.params.id);
+    const application = await Application.findById(req.params.id)
+      .populate("user", "email name")
+      .populate("job", "title");
 
     if (!application) {
       return res.status(404).json({ message: "Application not found" });
@@ -63,14 +132,24 @@ export const updateApplicationStatus = async (req, res) => {
     application.status = status;
     await application.save();
 
-    res.json({
-      message: `Application ${status} successfully`,
-    });
+    // 🔔 EMAIL TO USER
+    const subject =
+      status === "accepted"
+        ? "🎉 Application Accepted"
+        : "❌ Application Rejected";
+
+    const message =
+      status === "accepted"
+        ? `Congratulations! You have been selected for the job: ${application.job.title}`
+        : `Unfortunately, your application for ${application.job.title} was not selected.`;
+
+    await sendEmail(application.user.email, subject, message);
+
+    res.json({ message: `Application ${status}` });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
-
 export const getMyApplications = async (req, res) => {
   try {
     const applications = await Application.find({
