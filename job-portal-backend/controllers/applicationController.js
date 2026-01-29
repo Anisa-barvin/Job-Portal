@@ -5,35 +5,7 @@ import sendEmail from "../utils/sendEmail.js";
 import applicationSubmittedTemplate from "../utils/emailTemplates/applicationSubmitted.js";
 import newApplicationTemplate from "../utils/emailTemplates/newApplication.js";
 import applicationStatusTemplate from "../utils/emailTemplates/applicationStatus.js";
-
-// export const applyJob = async (req, res) => {
-//   try {
-//     const applicationExists = await Application.findOne({
-//       job: req.body.jobId,
-//       user: req.user.id,
-//     });
-
-//     if (applicationExists) {
-//       return res.status(400).json({
-//         message: "You have already applied for this job",
-//       });
-//     }
-
-//     const application = new Application({
-//       job: req.body.jobId,
-//       user: req.user.id,
-//       resume: `/uploads/resumes/${req.file.filename}`,
-//     });
-
-//     await application.save();
-
-//     res.status(201).json({
-//       message: "Job applied successfully",
-//     });
-//   } catch (error) {
-//     res.status(500).json({ message: error.message });
-//   }
-// };
+import { calculateMatch } from "../utils/resumeMatcher.js";
 
 export const applyJob = async (req, res) => {
   try {
@@ -52,6 +24,7 @@ export const applyJob = async (req, res) => {
       job: jobId,
       user: req.user.id,
       resume: `/uploads/resumes/${req.file.filename}`,
+      skills: req.body.skills,
     });
 
     await application.save();
@@ -91,19 +64,19 @@ await sendEmail(
   }
 };
 
-export const getApplicantsByJob = async (req, res) => {
-  try {
-    const applications = await Application.find({
-      job: req.params.jobId,
-    })
-      .populate("user", "name email")
-      .sort({ createdAt: -1 });
+// export const getApplicantsByJob = async (req, res) => {
+//   try {
+//     const applications = await Application.find({
+//       job: req.params.jobId,
+//     })
+//       .populate("user", "name email")
+//       .sort({ createdAt: -1 });
 
-    res.json(applications);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
+//     res.json(applications);
+//   } catch (error) {
+//     res.status(500).json({ message: error.message });
+//   }
+// };
 
 
 // export const updateApplicationStatus = async (req, res) => {
@@ -130,6 +103,34 @@ export const getApplicantsByJob = async (req, res) => {
 //     res.status(500).json({ message: error.message });
 //   }
 // };
+export const getApplicantsByJob = async (req, res) => {
+  try {
+    const applications = await Application.find({
+      job: req.params.jobId,
+    })
+      .populate("user", "name email")
+      .populate("job", "skills title")
+      .sort({ createdAt: -1 });
+
+    // 🔥 AI MATCHING LOGIC
+    const enhanced = applications.map((app) => {
+      const match = calculateMatch(
+        app.job.skills,
+        app.skills
+      );
+
+      return {
+        ...app.toObject(),
+        matchPercentage: match.percentage,
+        matchedSkills: match.matched,
+      };
+    });
+
+    res.json(enhanced);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
 
 export const updateApplicationStatus = async (req, res) => {
   const { status } = req.body;
@@ -187,6 +188,28 @@ export const getMyApplications = async (req, res) => {
 };
 
 
+// export const getRecruiterApplications = async (req, res) => {
+//   try {
+//     // find jobs posted by recruiter
+//     const jobs = await Job.find({ postedBy: req.user.id }).select("_id");
+
+//     const jobIds = jobs.map((job) => job._id);
+
+//     // find applications for those jobs
+//     const applications = await Application.find({
+//       job: { $in: jobIds },
+//     })
+//       .populate("user", "name email")
+//       .populate("job", "title")
+//       .sort({ createdAt: -1 });
+
+//     res.json(applications);
+//   } catch (error) {
+//     res.status(500).json({ message: error.message });
+//   }
+// };
+
+
 export const getRecruiterApplications = async (req, res) => {
   try {
     // find jobs posted by recruiter
@@ -194,20 +217,32 @@ export const getRecruiterApplications = async (req, res) => {
 
     const jobIds = jobs.map((job) => job._id);
 
-    // find applications for those jobs
     const applications = await Application.find({
       job: { $in: jobIds },
     })
       .populate("user", "name email")
-      .populate("job", "title")
+      .populate("job", "skills title")
       .sort({ createdAt: -1 });
 
-    res.json(applications);
+    // 🔥 AI MATCHING LOGIC
+    const enhanced = applications.map((app) => {
+      const match = calculateMatch(
+        app.job.skills,
+        app.skills
+      );
+
+      return {
+        ...app.toObject(),
+        matchPercentage: match.percentage,
+        matchedSkills: match.matched,
+      };
+    });
+
+    res.json(enhanced);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
-
 
 
 export const getUserDashboardStats = async (req, res) => {

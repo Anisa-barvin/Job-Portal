@@ -21,6 +21,10 @@ const applicationSchema = new mongoose.Schema(
       enum: ["pending", "accepted", "rejected"],
       default: "pending",
     },
+    skills: {
+  type: String, // "React, JavaScript, Node"
+},
+
   },
   { timestamps: true }
 );

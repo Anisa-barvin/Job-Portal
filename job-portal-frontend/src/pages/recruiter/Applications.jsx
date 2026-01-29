@@ -1,15 +1,21 @@
+
 // import { useEffect, useState } from "react";
 // import API from "../../services/api";
+// import ResumePreviewModal from "../../components/ResumePreviewModal";
 
 // function Applications() {
 //   const [applications, setApplications] = useState([]);
+//   const [selectedResume, setSelectedResume] = useState(null);
 
 //   const fetchApplications = async () => {
 //     try {
 //       const res = await API.get("/applications/recruiter");
 //       setApplications(res.data);
 //     } catch (error) {
-//       alert("Failed to load applications"+(error.response?.data?.message || ""));
+//       alert(
+//         "Failed to load applications " +
+//           (error.response?.data?.message || "")
+//       );
 //     }
 //   };
 
@@ -44,14 +50,17 @@
 //           </p>
 
 //           <div className="d-flex align-items-center gap-2 mb-2">
-//             <a
-//               href={`http://localhost:5000${app.resume}`}
-//               target="_blank"
-//               rel="noopener noreferrer"
+//             {/* ✅ PREVIEW RESUME BUTTON */}
+//             <button
 //               className="btn btn-sm btn-outline-primary"
+//               onClick={() =>
+//                 setSelectedResume(
+//                   `http://localhost:5000${app.resume}`
+//                 )
+//               }
 //             >
-//               View Resume
-//             </a>
+//               Preview Resume
+//             </button>
 
 //             <span
 //               className={`badge ${
@@ -64,6 +73,30 @@
 //             >
 //               {app.status}
 //             </span>
+//             <div className="mt-2">
+//   <strong>Match:</strong>{" "}
+//   <span
+//     className={`badge ${
+//       app.matchPercentage >= 70
+//         ? "bg-success"
+//         : app.matchPercentage >= 40
+//         ? "bg-warning"
+//         : "bg-danger"
+//     }`}
+//   >
+//     {app.matchPercentage}%
+//   </span>
+// </div>
+
+// {app.matchedSkills?.length > 0 && (
+//   <div className="mt-1">
+//     <small>
+//       <strong>Matched Skills:</strong>{" "}
+//       {app.matchedSkills.join(", ")}
+//     </small>
+//   </div>
+// )}
+
 //           </div>
 
 //           {app.status === "pending" && (
@@ -85,11 +118,20 @@
 //           )}
 //         </div>
 //       ))}
+
+//       {/* ✅ RESUME PREVIEW MODAL */}
+//       {selectedResume && (
+//         <ResumePreviewModal
+//           resumeUrl={selectedResume}
+//           onClose={() => setSelectedResume(null)}
+//         />
+//       )}
 //     </>
 //   );
 // }
 
 // export default Applications;
+
 
 
 import { useEffect, useState } from "react";
@@ -138,11 +180,41 @@ function Applications() {
         <div className="card p-3 shadow-sm mb-3" key={app._id}>
           <h6>{app.user.name}</h6>
           <p className="text-muted mb-1">{app.user.email}</p>
+
           <p className="mb-1">
             <strong>Job:</strong> {app.job.title}
           </p>
 
-          <div className="d-flex align-items-center gap-2 mb-2">
+          {/* 🔥 AI RESUME MATCH SECTION */}
+          {app.matchPercentage !== undefined && (
+            <>
+              <div className="mt-2">
+                <strong>Match:</strong>{" "}
+                <span
+                  className={`badge ${
+                    app.matchPercentage >= 70
+                      ? "bg-success"
+                      : app.matchPercentage >= 40
+                      ? "bg-warning"
+                      : "bg-danger"
+                  }`}
+                >
+                  {app.matchPercentage}%
+                </span>
+              </div>
+
+              {app.matchedSkills?.length > 0 && (
+                <div className="mt-1">
+                  <small>
+                    <strong>Matched Skills:</strong>{" "}
+                    {app.matchedSkills.join(", ")}
+                  </small>
+                </div>
+              )}
+            </>
+          )}
+
+          <div className="d-flex align-items-center gap-2 mt-2 mb-2">
             {/* ✅ PREVIEW RESUME BUTTON */}
             <button
               className="btn btn-sm btn-outline-primary"
