@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import API from "../../services/api";
+import Spinner from "../../components/Spinner";
 
 function Profile() {
   const [profile, setProfile] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -11,14 +14,19 @@ function Profile() {
 
   const fetchProfile = async () => {
     try {
+      setLoading(true);
       const res = await API.get("/auth/profile");
       setProfile(res.data);
       setFormData({
         name: res.data.name,
         email: res.data.email,
       });
+      setError("");
     } catch {
       alert("Failed to load profile");
+      setError("Failed to load applications");
+    }finally {
+      setLoading(false);
     }
   };
 
@@ -44,6 +52,18 @@ function Profile() {
       alert(error.response?.data?.message || "Update failed");
     }
   };
+  if (loading) {
+    return <Spinner message="Loading Profile...."/>;
+  }
+
+  if (error) {
+    return (
+      <div className="alert alert-danger text-center my-4">
+        {error}
+      </div>
+    );
+  }
+
 
   if (!profile) return <p>Loading profile...</p>;
 

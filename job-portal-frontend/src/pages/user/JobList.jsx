@@ -104,17 +104,21 @@ import { useEffect, useState } from "react";
 import "./JobList.css";
 import { useNavigate } from "react-router-dom";
 import API from "../../services/api";
+import Spinner from "../../components/Spinner";
 
 function JobList({ filters }) {
   const [jobs, setJobs] = useState([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [savedJobs, setSavedJobs] = useState([]);
+   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   const navigate = useNavigate();
 
   const fetchJobs = async () => {
     try {
+      setLoading(true);
       const res = await API.get("/jobs", {
         params: {
           ...filters,
@@ -122,11 +126,14 @@ function JobList({ filters }) {
           limit: 5,
         },
       });
-
+       setError("");
       setJobs(res.data.jobs);
       setTotalPages(res.data.totalPages);
     } catch (error) {
+      setError("Failed to load applications");
       alert("Failed to load jobs"+(error.response?.data?.message || ""));
+    }finally {
+      setLoading(false);
     }
   };
 const fetchSavedJobs = async () => {
@@ -148,6 +155,20 @@ const fetchSavedJobs = async () => {
     fetchJobs();
       fetchSavedJobs();
   }, [filters, page]);
+
+
+  if (loading) {
+    return <Spinner message="No jobs available right now. Check back later 🚀" />;
+  }
+
+  // ❌ ERROR STATE
+  if (error) {
+    return (
+      <div className="alert alert-danger text-center my-4">
+        {error}
+      </div>
+    );
+  }
 
   return (
     <>

@@ -1,16 +1,24 @@
 import { useEffect, useState } from "react";
 import API from "../../services/api";
 import RecruiterDashboardCharts from "../../components/RecruiterDashboardCharts";
+import Spinner from "../../components/Spinner";
 
 function RecruiterHome() {
   const [stats, setStats] = useState(null);
+    const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   const fetchStats = async () => {
     try {
+      setLoading(true);
       const res = await API.get("/applications/stats/recruiter");
       setStats(res.data);
-    } catch {
-      alert("Failed to load recruiter stats");
+      setError("");
+    } catch (err) {
+      alert("Failed to load recruiter stats"+ (err.response?.data?.message ? `: ${err.response?.data?.message}` : ''));
+      setError("Failed to load applications");
+    }finally {
+      setLoading(false);
     }
   };
 
@@ -18,6 +26,21 @@ function RecruiterHome() {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchStats();
   }, []);
+
+   if (loading) {
+    return <Spinner message="Loading Dashboard..." />;
+  }
+
+  // ❌ ERROR STATE
+  if (error) {
+    return (
+      <div className="alert alert-danger text-center my-4">
+        {error}
+      </div>
+    );
+  }
+
+
 
   if (!stats) return <p>Loading dashboard...</p>;
 

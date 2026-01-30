@@ -1,17 +1,25 @@
 import { useEffect, useState } from "react";
 import API from "../../services/api";
 import { useNavigate } from "react-router-dom";
+import Spinner from "../../components/Spinner";
 
 function MyJobs() {
   const [jobs, setJobs] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 const navigate = useNavigate();
 
   const fetchMyJobs = async () => {
     try {
+       setLoading(true);
       const res = await API.get("/jobs/myjobs");
       setJobs(res.data);
+      setError("");
     } catch (error) {
       alert("Failed to load jobs" + (error.response?.data?.message || ""));
+      setError("Failed to load applications");
+    }finally {
+      setLoading(false);
     }
   };
 
@@ -30,6 +38,21 @@ const navigate = useNavigate();
     // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchMyJobs();
   }, []);
+
+
+  // 🔄 LOADING STATE
+  if (loading) {
+    return <Spinner message="Loading Jobs..." />;
+  }
+
+  // ❌ ERROR STATE
+  if (error) {
+    return (
+      <div className="alert alert-danger text-center my-4">
+        {error}
+      </div>
+    );
+  }
 
   return (
     <>

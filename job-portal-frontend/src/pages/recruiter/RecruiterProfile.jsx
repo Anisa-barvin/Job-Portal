@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import API from "../../services/api";
-
+import Spinner from "../../components/Spinner";
 function RecruiterProfile() {
   const [profile, setProfile] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
@@ -10,8 +10,12 @@ function RecruiterProfile() {
     companyName: "",
   });
 
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
   const fetchProfile = async () => {
     try {
+          setLoading(true);
       const res = await API.get("/auth/profile");
       setProfile(res.data);
       setFormData({
@@ -19,8 +23,12 @@ function RecruiterProfile() {
         email: res.data.email,
         companyName: res.data.companyName || "",
       });
+      setError("");
     } catch {
       alert("Failed to load profile");
+      setError("Failed to load applications");
+    }finally {
+      setLoading(false);
     }
   };
 
@@ -46,6 +54,21 @@ function RecruiterProfile() {
       alert(error.response?.data?.message || "Update failed");
     }
   };
+
+
+  // 🔄 LOADING STATE
+  if (loading) {
+    return <Spinner message="Loading profile..." />;
+  }
+
+  // ❌ ERROR STATE
+  if (error) {
+    return (
+      <div className="alert alert-danger text-center my-4">
+        {error}
+      </div>
+    );
+  }
 
   if (!profile) return <p>Loading profile...</p>;
 

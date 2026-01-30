@@ -70,20 +70,28 @@
 import { useEffect, useState } from "react";
 import API from "../../services/api";
 import ResumePreviewModal from "../../components/ResumePreviewModal";
+import Spinner from "../../components/Spinner";
 
 function MyApplications() {
   const [applications, setApplications] = useState([]);
   const [selectedResume, setSelectedResume] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   const fetchMyApplications = async () => {
     try {
+      setLoading(true);
       const res = await API.get("/applications/my");
       setApplications(res.data);
     } catch (error) {
+      setError("Failed to load applications");
       alert(
         "Failed to load applications " +
           (error.response?.data?.message || "")
       );
+    }
+    finally {
+      setLoading(false);
     }
   };
 
@@ -91,6 +99,18 @@ function MyApplications() {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchMyApplications();
   }, []);
+
+  if (loading) {
+    return <Spinner message="Loading your applications..." />;
+  }
+
+  if (error) {
+    return (
+      <div className="alert alert-danger text-center my-4">
+        {error}
+      </div>
+    );
+  }
 
   return (
     <>

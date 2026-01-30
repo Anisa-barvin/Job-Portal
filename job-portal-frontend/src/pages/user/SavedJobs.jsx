@@ -1,18 +1,43 @@
 import { useEffect, useState } from "react";
 import API from "../../services/api";
 import { useNavigate } from "react-router-dom";
+import Spinner from "../../components/Spinner";
+
 function SavedJobs() {
   const [jobs, setJobs] = useState([]);
-const navigate = useNavigate();
+   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  const navigate = useNavigate();
   const fetchSavedJobs = async () => {
-    const res = await API.get("/users/saved");
-    setJobs(res.data);
+    try {
+      setLoading(true);
+      const res = await API.get("/users/saved");
+      setJobs(res.data);
+    } catch (error) {
+      setError("Failed to load saved jobs"+(error.response?.data?.message || ""));
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchSavedJobs();
   }, []);
+
+   if (loading) {
+    return <Spinner message="No saved jobs yet ❤️" />;
+  }
+
+  // ❌ ERROR STATE
+  if (error) {
+    return (
+      <div className="alert alert-danger text-center my-4">
+        {error}
+      </div>
+    );
+  }
 
   return (
     <>
