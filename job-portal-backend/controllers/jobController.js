@@ -1,4 +1,31 @@
 import Job from "../models/Job.js";
+import User from "../models/User.js";
+import { calculateMatch } from "../utils/resumeMatcher.js";
+
+
+export const getRecommendedJobs = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id);
+    const jobs = await Job.find();
+
+    const recommended = jobs.map((job) => {
+      const match = calculateMatch(job.skills, user.skills);
+      return {
+        ...job.toObject(),
+        matchPercentage: match.percentage,
+      };
+    });
+
+    // Sort by match %
+    recommended.sort(
+      (a, b) => b.matchPercentage - a.matchPercentage
+    );
+
+    res.json(recommended);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
 
 export const createJob = async (req, res) => {
   try {

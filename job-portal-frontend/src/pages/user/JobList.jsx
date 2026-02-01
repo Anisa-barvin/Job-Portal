@@ -136,6 +136,8 @@ function JobList({ filters }) {
       setLoading(false);
     }
   };
+
+  
 const fetchSavedJobs = async () => {
   const res = await API.get("/users/saved");
   setSavedJobs(res.data.map((job) => job._id));

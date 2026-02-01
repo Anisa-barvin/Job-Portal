@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import API from "../../services/api";
 import Spinner from "../../components/Spinner";
+import RecommendedJobs from "./RecommendedJobs";
 function DashboardHome() {
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -78,6 +79,12 @@ function DashboardHome() {
           </div>
         </div>
       </div>
+      <div>
+        <br></br>
+        <hr></hr>
+      </div>
+      <RecommendedJobs />
+      
     </>
   );
 }

@@ -1,26 +1,16 @@
-export const calculateMatch = (jobSkills, resumeSkills) => {
-  if (!jobSkills || !resumeSkills) return { percentage: 0, matched: [] };
+export const calculateMatch = (jobSkills, userSkills) => {
+  if (!jobSkills || !userSkills) return { percentage: 0 };
 
-  const jobArray = jobSkills
-    .toLowerCase()
-    .split(",")
-    .map((s) => s.trim());
+  const jobArray = jobSkills.toLowerCase().split(",").map(s => s.trim());
+  const userArray = userSkills.toLowerCase().split(",").map(s => s.trim());
 
-  const resumeArray = resumeSkills
-    .toLowerCase()
-    .split(",")
-    .map((s) => s.trim());
-
-  const matched = jobArray.filter((skill) =>
-    resumeArray.includes(skill)
+  const matched = jobArray.filter(skill =>
+    userArray.includes(skill)
   );
 
   const percentage = Math.round(
     (matched.length / jobArray.length) * 100
   );
 
-  return {
-    percentage,
-    matched,
-  };
+  return { percentage };
 };

@@ -1,96 +1,3 @@
-// import { useState } from "react";
-// import { Link } from "react-router-dom";
-// import "./Register.css";
-
-// function Register() {
-//   const [role, setRole] = useState("user");
-
-//   return (
-//     <div className="container-fluid register-page">
-        
-//       <div className="container">
-//         <div className="row justify-content-center">
-//           <div className="col-lg-9">
-//             <div className="card register-card shadow-lg">
-//               <div className="row g-0">
-
-//                 {/* LEFT – FORM */}
-//                {/* LEFT – FORM */}
-// <div className="col-md-6 d-flex align-items-center">
-//   <div className="w-100 px-4">
-
-//     <h3 className="register-title">Create Account 🚀</h3>
-//     <p className="register-subtitle mb-4">
-//       Join Job Portal and explore opportunities
-//     </p>
-
-//     <select
-//       className="form-select mb-3"
-//       value={role}
-//       onChange={(e) => setRole(e.target.value)}
-//     >
-//       <option value="user">Register as Job Seeker</option>
-//       <option value="recruiter">Register as Recruiter</option>
-//     </select>
-
-//     <input
-//       className="form-control mb-3"
-//       placeholder="Full Name"
-//       required
-//     />
-
-//     <input
-//       className="form-control mb-3"
-//       placeholder="Email address"
-//       required
-//     />
-
-//     <input
-//       type="password"
-//       className="form-control mb-3"
-//       placeholder="Password"
-//       required
-//     />
-
-//     {role === "recruiter" && (
-//       <input
-//         className="form-control mb-3"
-//         placeholder="Company Name"
-//         required
-//       />
-//     )}
-
-//     <button className="btn btn-success w-100 register-btn">
-//       Create Account
-//     </button>
-
-//     <p className="text-center mt-3">
-//       Already have an account?{" "}
-//       <Link to="/login">Login</Link>
-//     </p>
-
-//   </div>
-// </div>
-
-
-//                 {/* RIGHT – IMAGE */}
-//                 <div className="col-md-6 register-right d-none d-md-flex">
-//                   <img
-//                     src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
-//                     alt="Register illustration"
-//                   />
-//                 </div>
-
-//               </div>
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default Register;
 
 
 import { useState } from "react";
@@ -107,9 +14,10 @@ function Register() {
     password: "",
     role: "user",
     companyName: "",
+    skills: "",
   });
 
-  const { name, email, password, role, companyName } = formData;
+  const { name, email, password, role, companyName, skills } = formData;
 
   // handle input change
   const handleChange = (e) => {
@@ -186,6 +94,17 @@ function Register() {
                         onChange={handleChange}
                         required
                       />
+
+                      {role === "user" && (
+                        <input
+                          className="form-control mb-3"
+                          name="skills"
+                          placeholder="Your Skills (React, Java, SQL)"
+                          value={skills}
+                          onChange={handleChange}
+                          required
+                        />
+                      )}
 
                       {role === "recruiter" && (
                         <input

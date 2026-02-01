@@ -4,7 +4,8 @@ import { createJob,
      getMyJobs,
   deleteJob,
   getJobById,
-  getAllJobs
+  getAllJobs,
+  getRecommendedJobs
  } from "../controllers/jobController.js";
 import protect from "../middleware/authMiddleware.js";
 
@@ -15,6 +16,11 @@ router.post(
   protect,
   upload.single("companyLogo"),
   createJob
+);
+router.get(
+  "/recommended",
+  protect,
+  getRecommendedJobs
 );
 
 

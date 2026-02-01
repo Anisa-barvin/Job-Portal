@@ -31,6 +31,10 @@ const userSchema = new mongoose.Schema(
 ],
 resetPasswordToken: String,
 resetPasswordExpire: Date,
+skills: {
+  type: String, // "React, JavaScript, HTML"
+},
+
 
 
   },

@@ -7,7 +7,7 @@ import sendEmail from "../utils/sendEmail.js";
 
 // REGISTER
 export const registerUser = async (req, res) => {
-  const { name, email, password, role, companyName } = req.body;
+  const { name, email, password, role, companyName, skills } = req.body;
 
   try {
     const userExists = await User.findOne({ email });
@@ -24,6 +24,7 @@ export const registerUser = async (req, res) => {
       password: hashedPassword,
       role,
       companyName: role === "recruiter" ? companyName : null,
+      skills: role === "user" ? skills : null, 
     });
 
     res.status(201).json({
@@ -88,8 +89,16 @@ export const updateProfile = async (req, res) => {
     }
 
     user.name = req.body.name || user.name;
-    user.companyName = req.body.companyName || user.companyName;
+   // user.companyName = req.body.companyName || user.companyName;
     user.email = req.body.email || user.email;
+   if (user.role === "recruiter") {
+      user.companyName = req.body.companyName || user.companyName;
+    }
+
+    // job seeker-only
+    if (user.role === "user") {
+      user.skills = req.body.skills || user.skills;   // ✅ ADD THIS
+    }
 
     const updatedUser = await user.save();
 
@@ -100,6 +109,7 @@ export const updateProfile = async (req, res) => {
         email: updatedUser.email,
         companyName: updatedUser.companyName,
         role: updatedUser.role,
+        skills: updatedUser.skills,
         createdAt: updatedUser.createdAt,
       },
     });
