@@ -10,6 +10,7 @@ function Profile() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    skills: "",
   });
 
   const fetchProfile = async () => {
@@ -20,6 +21,7 @@ function Profile() {
       setFormData({
         name: res.data.name,
         email: res.data.email,
+        skills: res.data.skills,
       });
       setError("");
     } catch {
@@ -80,6 +82,17 @@ function Profile() {
             className="form-control"
             name="name"
             value={formData.name}
+            onChange={handleChange}
+            disabled={!isEditing}
+          />
+        </div>
+
+         <div className="mb-3">
+          <label className="form-label">Skills</label>
+          <input
+            className="form-control"
+            name="skills"
+            value={formData.skills}
             onChange={handleChange}
             disabled={!isEditing}
           />
