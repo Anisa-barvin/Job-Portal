@@ -76,6 +76,7 @@ import { useState } from "react";
   import Profile from "./Profile"; 
   import SavedJobs from "./SavedJobs";
 import RecommendedJobs from "./RecommendedJobs";
+import UserNavbar from "../../components/UserNavbar";
 
   function UserDashboard() { 
     const [active, setActive] = useState("dashboard"); 
@@ -97,10 +98,10 @@ import RecommendedJobs from "./RecommendedJobs";
          return (
           
           <> 
-          <Navbar /> 
+         
           <div className="container-fluid user-dashboard"> 
             <div className="row"> 
-              
+               <UserNavbar />
               {/* SIDEBAR */} 
               
               <div className="col-md-3 col-lg-2 sidebar"> 
@@ -112,6 +113,7 @@ import RecommendedJobs from "./RecommendedJobs";
                 <button onClick={() => setActive("profile")}>Profile</button>
                 <button onClick={() => setActive("saved")}> Saved Jobs</button>
                 <button onClick={() => setActive("recommended")}> Recommended Jobs</button>
+                
                  <button onClick={handleLogout} className="text-danger"> Logout </button> 
                  
                  </div> {/* MAIN CONTENT */}
@@ -119,6 +121,7 @@ import RecommendedJobs from "./RecommendedJobs";
                   <div className="col-md-9 col-lg-10 dashboard-content"> 
                     {renderContent()} 
                    </div> 
+                  
              </div> 
           </div> 
         </>

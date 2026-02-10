@@ -8,7 +8,7 @@ import ApplyJob from "../user/ApplyJob";
 import JobDetails from "../recruiter/JobDetails";
 import ForgotPassword from "../auth/ForgotPassword";
 import ResetPassword from "../auth/ResetPassword"; 
-
+import SavedJobs from "../user/SavedJobs";
 import ProtectedRoute from "../../components/ProtectedRoute";
 import Unauthorized from "../Unauthorized";
 function AppRoutes() {
@@ -39,6 +39,14 @@ function AppRoutes() {
       <Route path="/recruiter/jobs/:id" element={<JobDetails />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/reset-password/:token" element={<ResetPassword />} />
+<Route
+  path="/user/saved"
+  element={
+    <ProtectedRoute allowedRoles={["user"]}>
+      <SavedJobs />
+    </ProtectedRoute>
+  }
+/>
 
     </Routes>
   );

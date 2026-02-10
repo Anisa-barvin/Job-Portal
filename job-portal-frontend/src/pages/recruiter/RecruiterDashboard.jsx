@@ -1,12 +1,13 @@
 import { useState } from "react";
 import "./RecruiterDashboard.css";
-import Navbar from "../../components/Navbar";
+
 
 import RecruiterHome from "./RecruiterHome";
 import PostJob from "./PostJob";
 import MyJobs from "./MyJobs";
 import Applications from "./Applications";
 import RecruiterProfile from "./RecruiterProfile";
+import RecruiterNavbar from "../../components/RecruiterNavbar";
 
 function RecruiterDashboard() {
   const [active, setActive] = useState("dashboard");
@@ -35,7 +36,7 @@ function RecruiterDashboard() {
 
   return (
     <>
-      <Navbar />
+      <RecruiterNavbar />
 
       <div className="container-fluid recruiter-dashboard">
         <div className="row">
