@@ -1,0 +1,14 @@
+.recommended-header {
+  border-bottom: 1px solid #e5e7eb;
+  padding-bottom: 10px;
+}
+
+.match-badge-modern {
+  background: #ecfdf5;
+  color: #065f46;
+  text-align: center;
+  padding: 6px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+}

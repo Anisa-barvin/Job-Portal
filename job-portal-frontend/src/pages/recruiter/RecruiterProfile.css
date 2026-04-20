@@ -1,0 +1,108 @@
+.recruiter-profile-wrapper {
+  max-width: 1000px;
+  margin: auto;
+}
+
+/* HEADER */
+.recruiter-profile-header h2 {
+  font-size: 30px;
+  font-weight: 800;
+}
+
+.recruiter-profile-header p {
+  color: #6b7280;
+  margin-bottom: 25px;
+}
+
+/* CARD */
+.recruiter-profile-card {
+  display: flex;
+  gap: 40px;
+  background: white;
+  padding: 35px;
+  border-radius: 20px;
+  box-shadow: 0 10px 35px rgba(0,0,0,0.06);
+}
+
+/* LEFT */
+.recruiter-profile-left {
+  width: 260px;
+  text-align: center;
+}
+
+.recruiter-profile-avatar {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #4f46e5, #2563eb);
+  color: white;
+  font-size: 36px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  margin-bottom: 15px;
+}
+
+.recruiter-profile-left h4 {
+  font-weight: 700;
+}
+
+.recruiter-profile-left p {
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.recruiter-role-badge {
+  background: #eef2ff;
+  color: #3730a3;
+  padding: 6px 16px;
+  border-radius: 12px;
+  font-weight: 600;
+  display: inline-block;
+  margin-top: 10px;
+}
+
+/* FORM */
+.recruiter-profile-form {
+  flex: 1;
+}
+
+/* INPUT */
+.profile-label-modern {
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.profile-input-modern {
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-size: 15px;
+}
+
+/* BUTTONS */
+.recruiter-edit-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #2563eb, #1e40af);
+  border: none;
+  color: white;
+  padding: 14px;
+  border-radius: 14px;
+  font-weight: 600;
+}
+
+.recruiter-save-btn {
+  background: #22c55e;
+  border: none;
+  color: white;
+  padding: 12px;
+  border-radius: 12px;
+}
+
+.recruiter-cancel-btn {
+  background: #e5e7eb;
+  border: none;
+  padding: 12px;
+  border-radius: 12px;
+}

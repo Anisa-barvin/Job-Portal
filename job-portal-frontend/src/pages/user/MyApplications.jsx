@@ -1,0 +1,308 @@
+// import { useEffect, useState } from "react";
+// import API from "../../services/api";
+
+// function MyApplications() {
+//   const [applications, setApplications] = useState([]);
+
+//   const fetchMyApplications = async () => {
+//     try {
+//       const res = await API.get("/applications/my");
+//       setApplications(res.data);
+//     } catch (error) {
+//       alert("Failed to load applications"+(error.response?.data?.message || ""));
+//     }
+//   };
+
+//   useEffect(() => {
+//     // eslint-disable-next-line react-hooks/set-state-in-effect
+//     fetchMyApplications();
+//   }, []);
+
+//   return (
+//     <>
+//       <h2 className="dashboard-title">My Applications</h2>
+//       <p className="text-muted mb-4">
+//         Track the status of jobs you applied for
+//       </p>
+
+//       {applications.length === 0 && (
+//         <p className="text-muted">You have not applied for any jobs yet</p>
+//       )}
+
+//       {applications.map((app) => (
+//         <div className="card p-3 shadow-sm mb-3" key={app._id}>
+//           <h6>{app.job?.title}</h6>
+//           <p className="text-muted mb-1">
+//             {app.job?.companyName}
+//           </p>
+
+//           <div className="d-flex align-items-center gap-2">
+//             <span
+//               className={`badge ${
+//                 app.status === "pending"
+//                   ? "bg-warning"
+//                   : app.status === "accepted"
+//                   ? "bg-success"
+//                   : "bg-danger"
+//               }`}
+//             >
+//               {app.status}
+//             </span>
+
+//             <a
+//               href={`http://localhost:5000${app.resume}`}
+//               target="_blank"
+//               rel="noopener noreferrer"
+//               className="btn btn-sm btn-outline-primary"
+//             >
+//               View Resume
+//             </a>
+//           </div>
+//         </div>
+//       ))}
+//     </>
+//   );
+// }
+
+// export default MyApplications;
+
+
+
+
+
+
+// import { useEffect, useState } from "react";
+// import API from "../../services/api";
+// import ResumePreviewModal from "../../components/ResumePreviewModal";
+// import Spinner from "../../components/Spinner";
+
+// function MyApplications() {
+//   const [applications, setApplications] = useState([]);
+//   const [selectedResume, setSelectedResume] = useState(null);
+//   const [loading, setLoading] = useState(true);
+//   const [error, setError] = useState("");
+
+//   const fetchMyApplications = async () => {
+//     try {
+//       setLoading(true);
+//       const res = await API.get("/applications/my");
+//       setApplications(res.data);
+//     } catch (error) {
+//       setError("Failed to load applications");
+//       alert(
+//         "Failed to load applications " +
+//           (error.response?.data?.message || "")
+//       );
+//     }
+//     finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   useEffect(() => {
+//     // eslint-disable-next-line react-hooks/set-state-in-effect
+//     fetchMyApplications();
+//   }, []);
+
+//   if (loading) {
+//     return <Spinner message="Loading your applications..." />;
+//   }
+
+//   if (error) {
+//     return (
+//       <div className="alert alert-danger text-center my-4">
+//         {error}
+//       </div>
+//     );
+//   }
+
+//   return (
+//     <>
+//       <h2 className="dashboard-title">My Applications</h2>
+//       <p className="text-muted mb-4">
+//         Track the status of jobs you applied for
+//       </p>
+
+//       {applications.length === 0 && (
+//         <p className="text-muted">
+//           You have not applied for any jobs yet
+//         </p>
+//       )}
+
+//       {applications.map((app) => (
+//         <div className="card p-3 shadow-sm mb-3" key={app._id}>
+//           <h6>{app.job?.title}</h6>
+//           <p className="text-muted mb-1">
+//             {app.job?.companyName}
+//           </p>
+
+//           <div className="d-flex align-items-center gap-2">
+//             <span
+//               className={`badge ${
+//                 app.status === "pending"
+//                   ? "bg-warning"
+//                   : app.status === "accepted"
+//                   ? "bg-success"
+//                   : "bg-danger"
+//               }`}
+//             >
+//               {app.status}
+//             </span>
+
+//             {/* ✅ PREVIEW RESUME BUTTON */}
+//             <button
+//               className="btn btn-sm btn-outline-primary"
+//               onClick={() =>
+//                 setSelectedResume(
+//                   `http://localhost:5000${app.resume}`
+//                 )
+//               }
+//             >
+//               Preview Resume
+//             </button>
+//           </div>
+//         </div>
+//       ))}
+
+//       {/* ✅ RESUME PREVIEW MODAL */}
+//       {selectedResume && (
+//         <ResumePreviewModal
+//           resumeUrl={selectedResume}
+//           onClose={() => setSelectedResume(null)}
+//         />
+//       )}
+//     </>
+//   );
+// }
+
+// export default MyApplications;
+
+
+
+import { useEffect, useState } from "react";
+import API from "../../services/api";
+import ResumePreviewModal from "../../components/ResumePreviewModal";
+import Spinner from "../../components/Spinner";
+import "./MyApplications.css";
+function MyApplications() {
+  const [applications, setApplications] = useState([]);
+  const [selectedResume, setSelectedResume] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = "";
+
+  const fetchMyApplications = async () => {
+    try {
+      setLoading(true);
+      const res = await API.get("/applications/my");
+      setApplications(res.data);
+    } catch (error) {
+      setError("Failed to load applications");
+      alert(
+        "Failed to load applications " +
+          (error.response?.data?.message || "")
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchMyApplications();
+  }, []);
+
+  if (loading) {
+    return <Spinner message="Loading your applications..." />;
+  }
+
+  if (error) {
+    return (
+      <div className="alert alert-danger text-center my-4">
+        {error}
+      </div>
+    );
+  }
+
+  return (
+    <>
+      {/* ⭐ HEADER */}
+      <div className="applications-header mb-4">
+        <h2 className="fw-bold">My Applications</h2>
+        <p className="text-muted mb-0">
+          Track and manage your job applications
+        </p>
+      </div>
+
+      {/* ⭐ EMPTY STATE */}
+      {applications.length === 0 && (
+        <div className="empty-state-modern">
+          <h5>No Applications Yet</h5>
+          <p className="text-muted">
+            Start applying to jobs and track status here
+          </p>
+        </div>
+      )}
+
+      {/* ⭐ APPLICATION CARDS */}
+      {applications.map((app) => (
+        <div className="application-card-modern" key={app._id}>
+
+          {/* LEFT CONTENT */}
+          <div className="application-main">
+
+            <h4 className="application-title">
+              {app.job?.title}
+            </h4>
+
+            <p className="application-company">
+              {app.job?.companyName}
+            </p>
+
+            <div className="application-meta">
+              <span>Status:</span>
+
+              <span
+                className={`status-badge ${
+                  app.status === "pending"
+                    ? "pending"
+                    : app.status === "accepted"
+                    ? "accepted"
+                    : "rejected"
+                }`}
+              >
+                {app.status}
+              </span>
+            </div>
+
+          </div>
+
+          {/* RIGHT ACTION */}
+          <div className="application-actions">
+
+            <button
+              className="resume-preview-btn"
+              onClick={() =>
+                setSelectedResume(
+                  `http://localhost:5000${app.resume}`
+                )
+              }
+            >
+              Preview Resume
+            </button>
+
+          </div>
+
+        </div>
+      ))}
+
+      {/* RESUME MODAL */}
+      {selectedResume && (
+        <ResumePreviewModal
+          resumeUrl={selectedResume}
+          onClose={() => setSelectedResume(null)}
+        />
+      )}
+    </>
+  );
+}
+
+export default MyApplications;

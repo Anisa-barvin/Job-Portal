@@ -1,0 +1,66 @@
+.dashboard-home-header {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.dashboard-divider {
+  height: 1px;
+  background: #e5e7eb;
+}
+
+/* STAT CARDS */
+.dashboard-stat-card {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: white;
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.05);
+  transition: 0.25s;
+}
+
+.dashboard-stat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 26px rgba(0,0,0,0.08);
+}
+
+.stat-icon {
+  font-size: 28px;
+  background: #f3f4f6;
+  padding: 12px;
+  border-radius: 10px;
+}
+
+.stat-label {
+  margin: 0;
+  font-size: 20px;
+  color: #6b7280;
+
+}
+
+.stat-value {
+  margin: 0;
+  font-weight: 700;
+}
+
+/* OPTIONAL COLOR ACCENTS */
+.dashboard-stat-card.success .stat-icon {
+  background: #ecfdf5;
+}
+
+.dashboard-stat-card.warning .stat-icon {
+  background: #fffbeb;
+}
+
+.dashboard-stat-card.danger .stat-icon {
+  background: #fef2f2;
+}
+
+/* RECOMMENDED JOBS CONTAINER */
+.dashboard-section-card {
+  background: white;
+  padding: 25px;
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.05);
+}

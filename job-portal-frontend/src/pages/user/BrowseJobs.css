@@ -1,0 +1,42 @@
+/* HEADER */
+.browse-header {
+  border-bottom: 1px solid #e5e7eb;
+  padding-bottom: 10px;
+}
+
+/* FILTER CARD */
+.browse-filter-card {
+  background: white;
+  padding: 22px;
+  border-radius: 14px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+}
+
+/* LABEL */
+.filter-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #6b7280;
+  margin-bottom: 6px;
+  display: block;
+}
+
+/* INPUT STYLE */
+.filter-input {
+  border-radius: 10px;
+  padding: 10px;
+  transition: 0.2s;
+}
+
+.filter-input:focus {
+  box-shadow: 0 0 0 2px rgba(0,0,0,0.05);
+  border-color: #d1d5db;
+}
+
+/* RESULTS CARD */
+.browse-results-card {
+  background: white;
+  padding: 25px;
+  border-radius: 14px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+}

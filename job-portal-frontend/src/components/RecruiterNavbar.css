@@ -1,0 +1,78 @@
+/* ===== NAVBAR MAIN ===== */
+.recruiter-navbar-modern {
+  height: 70px;
+  padding: 0 40px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  background: rgba(255,255,255,0.75);
+  backdrop-filter: blur(12px);
+
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+
+/* ===== LOGO ===== */
+.recruiter-navbar-logo {
+  font-size: 22px;
+  font-weight: 700;
+  cursor: pointer;
+
+  background: linear-gradient(45deg,#2563eb,#7c3aed);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ===== RIGHT MENU ===== */
+.recruiter-navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+/* ===== NORMAL NAV BUTTON ===== */
+.nav-modern-btn {
+  background: transparent;
+  border: none;
+
+  font-size: 16px;
+  font-weight: 500;
+  color: #374151;
+
+  padding: 8px 14px;
+  border-radius: 8px;
+
+  transition: all 0.25s ease;
+}
+
+.nav-modern-btn:hover {
+  background: rgba(37,99,235,0.08);
+  color: #2563eb;
+  transform: translateY(-1px);
+}
+
+/* ===== LOGOUT BUTTON ===== */
+.logout-modern-btn {
+  border: none;
+  padding: 10px 18px;
+  border-radius: 10px;
+
+  font-weight: 600;
+  font-size: 15px;
+
+  background: linear-gradient(45deg,#ef4444,#dc2626);
+  color: white;
+
+  transition: all 0.25s ease;
+}
+
+.logout-modern-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(239,68,68,0.3);
+}

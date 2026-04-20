@@ -1,0 +1,170 @@
+.profile-header {
+  border-bottom: 1px solid #e5e7eb;
+  padding-bottom: 10px;
+}
+
+/* CARD */
+.profile-card-modern {
+  background: white;
+  padding: 35px;
+  border-radius: 16px;
+  box-shadow: 0 8px 22px rgba(0,0,0,0.05);
+  max-width: 600px;
+}
+
+/* AVATAR */
+.profile-avatar {
+  width: 70px;
+  height: 70px;
+  background: #111827;
+  color: white;
+  font-size: 26px;
+  font-weight: 700;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+/* LABEL */
+.profile-label {
+  font-weight: 600;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+/* INPUT */
+.profile-input {
+  border-radius: 10px;
+  padding: 10px;
+}
+
+/* BUTTONS */
+.profile-edit-btn {
+  width: 100%;
+  border: none;
+  background: #111827;
+  color: white;
+  padding: 12px;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+.profile-save-btn {
+  border: none;
+  background: #16a34a;
+  color: white;
+  padding: 12px;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+.profile-cancel-btn {
+  border: none;
+  background: #6b7280;
+  color: white;
+  padding: 12px;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+
+.profile-page-wrapper {
+  padding: 10px 20px;
+  background: #f6f7fb;
+  min-height: 100vh;
+}
+
+/* TOP PROFILE CARD */
+.profile-top-card {
+  background: white;
+  border-radius: 16px;
+  padding: 25px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+  margin-bottom: 25px;
+}
+
+/* AVATAR */
+.profile-avatar-large {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background:#346de8; 
+  color: white;
+  font-size: 30px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* NAME */
+.profile-name {
+  font-weight: 700;
+  margin: 0;
+}
+
+.profile-role {
+  color: #6b7280;
+  margin: 0;
+}
+
+/* MAIN FORM CARD */
+.profile-main-card {
+  background: white;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+}
+
+/* LABEL */
+.profile-label {
+  font-weight: 600;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+/* INPUT */
+.profile-input-modern {
+  border-radius: 10px;
+  padding: 12px;
+}
+
+/* BUTTON AREA */
+.profile-btn-area {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+/* BUTTONS */
+.profile-btn-primary {
+  background: #346de8;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+.profile-btn-success {
+  background: #16a34a;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+.profile-btn-cancel {
+  background: #6b7280;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-weight: 600;
+}

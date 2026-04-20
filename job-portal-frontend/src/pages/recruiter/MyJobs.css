@@ -1,0 +1,175 @@
+.myjobs-wrapper {
+  max-width: 900px;
+}
+
+/* HEADER */
+.myjobs-header h2 {
+  font-weight: 700;
+}
+
+.myjobs-header p {
+  color: #6b7280;
+  margin-bottom: 25px;
+}
+
+/* EMPTY STATE */
+.myjobs-empty {
+  background: white;
+  padding: 40px;
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+
+/* CARD */
+.myjob-card-modern {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  padding: 22px;
+  border-radius: 16px;
+  margin-bottom: 18px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+  transition: 0.3s;
+}
+
+.myjob-card-modern:hover {
+  transform: translateY(-4px);
+}
+
+/* INFO */
+.myjob-title {
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.myjob-company {
+  color: #6b7280;
+  margin-bottom: 10px;
+}
+
+/* META */
+.myjob-meta {
+  display: flex;
+  gap: 18px;
+  font-size: 14px;
+  color: #374151;
+}
+
+/* ACTIONS */
+.myjob-actions {
+  display: flex;
+  gap: 12px;
+}
+
+/* BUTTONS */
+.myjob-btn-primary {
+  border: none;
+  padding: 10px 18px;
+  border-radius: 10px;
+  background: linear-gradient(135deg,#2563eb,#1d4ed8);
+  color: white;
+  font-weight: 600;
+}
+
+.myjob-btn-danger {
+  border: none;
+  padding: 10px 18px;
+  border-radius: 10px;
+  background: #ef4444;
+  color: white;
+  font-weight: 600;
+}
+
+.myjobs-modern-wrapper {
+  max-width: 1000px;
+  margin: auto;
+}
+
+/* HEADER */
+.myjobs-modern-header h1 {
+  font-size: 32px;
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+
+.myjobs-modern-header p {
+  font-size: 17px;
+  color: #6b7280;
+  margin-bottom: 35px;
+}
+
+/* EMPTY */
+.myjobs-empty-modern {
+  background: white;
+  padding: 50px;
+  border-radius: 18px;
+  text-align: center;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.06);
+}
+
+/* CARD */
+.myjob-modern-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f9fafb;
+  padding: 28px;
+  border-radius: 20px;
+  margin-bottom: 22px;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.05);
+  transition: 0.3s ease;
+}
+
+.myjob-modern-card:hover {
+  transform: translateY(-6px);
+}
+
+/* LEFT */
+.myjob-modern-title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.myjob-modern-company {
+  font-size: 17px;
+  color: #6b7280;
+  margin-bottom: 14px;
+}
+
+/* DETAILS */
+.myjob-modern-details {
+  display: flex;
+  gap: 22px;
+  font-size: 15px;
+  color: #374151;
+}
+
+/* RIGHT ACTIONS */
+.myjob-modern-actions {
+  display: flex;
+  gap: 14px;
+}
+
+/* BUTTONS */
+.myjob-view-btn {
+  background: linear-gradient(135deg,#2563eb,#1d4ed8);
+  border: none;
+  color: white;
+  padding: 12px 22px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.myjob-delete-btn {
+  background: #ef4444;
+  border: none;
+  color: white;
+  padding: 12px 22px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+}

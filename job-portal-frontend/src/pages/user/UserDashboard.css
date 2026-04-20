@@ -1,0 +1,123 @@
+
+
+
+
+
+/* ===== MAIN WRAPPER ===== */
+.user-dashboard-modern {
+  display: flex;
+  height: calc(100vh - 70px); /* minus navbar height */
+  background: #f4f6f9;
+  overflow: hidden;
+}
+
+/* ===== SIDEBAR FIXED ===== */
+.sidebar-modern {
+  width: 260px;
+  background: #c3c9d0;
+  color:black;
+  padding: 25px 15px;
+
+  position: fixed;
+  left: 0;
+  top: 70px;   /* navbar height */
+  bottom: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  overflow: hidden; /* Prevent full sidebar scroll */
+}
+
+/* ===== LOGO ===== */
+.sidebar-logo h4 {
+  font-weight: 700;
+}
+
+/* ===== MENU SCROLL AREA ===== */
+.sidebar-menu {
+  margin-top: 25px;
+  flex: 1;
+
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+/* Scrollbar Styling */
+.sidebar-menu::-webkit-scrollbar {
+  width: 6px;
+}
+.sidebar-menu::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.2);
+  border-radius: 10px;
+}
+
+/* ===== MENU BUTTONS ===== */
+.sidebar-btn {
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: black;
+  text-align: left;
+  padding: 12px 15px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  transition: 0.25s;
+  font-weight: 500;
+}
+
+.sidebar-btn:hover {
+  background: white;
+}
+
+.sidebar-btn.active {
+  background: #5a667a;
+  color: white;
+  font-weight: 600;
+}
+
+/* ===== LOGOUT BUTTON (ALWAYS BOTTOM) ===== */
+.logout-btn-modern {
+  margin-top: auto;   /* ⭐ THIS MAKES IT STICK BOTTOM */
+
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  background: #ef4444;
+  color: white;
+  font-weight: 600;
+  transition: 0.25s;
+}
+
+.logout-btn-modern:hover {
+  background: #dc2626;
+}
+
+/* ===== CONTENT AREA ===== */
+.dashboard-content-modern {
+  margin-left: 260px;
+  width: calc(100% - 260px);
+
+  height: calc(100vh - 70px);
+  overflow-y: auto;
+
+  padding: 30px;
+}
+
+/* ===== HEADER ===== */
+.dashboard-header {
+  margin-bottom: 20px;
+}
+
+.dashboard-page-title {
+  font-weight: 700;
+  color: #111827;
+}
+
+/* ===== CARD AREA ===== */
+.dashboard-card-area {
+  background: white;
+  padding: 25px;
+  border-radius: 14px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+}

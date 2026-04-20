@@ -1,0 +1,70 @@
+.recruiter-home-wrapper {
+  padding: 10px 10px 30px;
+}
+
+/* HEADER */
+.recruiter-home-header h2 {
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.recruiter-home-header p {
+  color: #6b7280;
+  margin-bottom: 25px;
+}
+
+/* STATS ROW */
+.recruiter-stats-row {
+  margin-bottom: 30px;
+}
+
+/* STAT CARD */
+.recruiter-stat-card {
+  padding: 22px;
+  border-radius: 16px;
+  color: white;
+  font-weight: 600;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  transition: 0.3s;
+}
+
+.recruiter-stat-card h6 {
+  opacity: 0.9;
+  font-size: 14px;
+}
+
+.recruiter-stat-card h3 {
+  font-size: 30px;
+  font-weight: 700;
+  margin-top: 5px;
+}
+
+/* HOVER */
+.recruiter-stat-card:hover {
+  transform: translateY(-5px);
+}
+
+/* COLORS */
+.stat-blue {
+  background: linear-gradient(135deg,#2563eb,#1d4ed8);
+}
+
+.stat-purple {
+  background: linear-gradient(135deg,#7c3aed,#6d28d9);
+}
+
+.stat-green {
+  background: linear-gradient(135deg,#16a34a,#15803d);
+}
+
+.stat-orange {
+  background: linear-gradient(135deg,#f59e0b,#d97706);
+}
+
+/* CHART SECTION */
+.recruiter-chart-section {
+  background: white;
+  padding: 25px;
+  border-radius: 18px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
