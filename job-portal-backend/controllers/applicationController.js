@@ -33,31 +33,22 @@ export const applyJob = async (req, res) => {
     const user = await User.findById(req.user.id);
     const job = await Job.findById(jobId).populate("postedBy", "email");
 
-    // // Email to User
-    // await sendEmail(
-    //   user.email,
-    //   "Job Application Submitted",
-    //   `You have successfully applied for the job: ${job.title}`
-    // );
 
-    // // Email to Recruiter
-    // await sendEmail(
-    //   job.postedBy.email,
-    //   "New Job Application",
-    //   `A new candidate has applied for your job: ${job.title}`
-    // );
+try {
+  await sendEmail(
+    user.email,
+    "Application Submitted",
+    applicationSubmittedTemplate(user.name, job.title)
+  );
 
-    await sendEmail(
-  user.email,
-  "Application Submitted",
-  applicationSubmittedTemplate(user.name, job.title)
-);
-
-await sendEmail(
-  job.postedBy.email,
-  "New Job Application",
-  newApplicationTemplate(job.title, user.name)
-);
+  await sendEmail(
+    job.postedBy.email,
+    "New Job Application",
+    newApplicationTemplate(job.title, user.name)
+  );
+} catch (emailError) {
+  console.log("Email Error:", emailError.message);
+}
     res.status(201).json({ message: "Applied successfully" });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -132,6 +123,48 @@ export const getApplicantsByJob = async (req, res) => {
   }
 };
 
+// export const updateApplicationStatus = async (req, res) => {
+//   const { status } = req.body;
+
+//   try {
+//     const application = await Application.findById(req.params.id)
+//       .populate("user", "email name")
+//       .populate("job", "title");
+
+//     if (!application) {
+//       return res.status(404).json({ message: "Application not found" });
+//     }
+
+//     application.status = status;
+//     await application.save();
+
+//     // 🔔 EMAIL TO USER
+//     const subject =
+//       status === "accepted"
+//         ? "🎉 Application Accepted"
+//         : "❌ Application Rejected";
+
+//     const message =
+//       status === "accepted"
+//         ? `Congratulations! You have been selected for the job: ${application.job.title}`
+//         : `Unfortunately, your application for ${application.job.title} was not selected.`;
+
+//    await sendEmail(
+//   application.user.email,
+//   "Application Status Update",
+//   applicationStatusTemplate(
+//     application.user.name,
+//     application.job.title,
+//     status
+//   )
+// );
+
+//     res.json({ message: `Application ${status}` });
+//   } catch (error) {
+//     res.status(500).json({ message: error.message });
+//   }
+// };
+
 export const updateApplicationStatus = async (req, res) => {
   const { status } = req.body;
 
@@ -141,36 +174,40 @@ export const updateApplicationStatus = async (req, res) => {
       .populate("job", "title");
 
     if (!application) {
-      return res.status(404).json({ message: "Application not found" });
+      return res.status(404).json({
+        message: "Application not found",
+      });
     }
 
     application.status = status;
+
     await application.save();
 
-    // 🔔 EMAIL TO USER
-    const subject =
-      status === "accepted"
-        ? "🎉 Application Accepted"
-        : "❌ Application Rejected";
+    // Send email without stopping the API
+    try {
+      await sendEmail(
+        application.user.email,
+        "Application Status Update",
+        applicationStatusTemplate(
+          application.user.name,
+          application.job.title,
+          status
+        )
+      );
+    } catch (emailError) {
+      console.log("Email Error:", emailError.message);
+    }
 
-    const message =
-      status === "accepted"
-        ? `Congratulations! You have been selected for the job: ${application.job.title}`
-        : `Unfortunately, your application for ${application.job.title} was not selected.`;
+    res.json({
+      message: `Application ${status} successfully`,
+    });
 
-   await sendEmail(
-  application.user.email,
-  "Application Status Update",
-  applicationStatusTemplate(
-    application.user.name,
-    application.job.title,
-    status
-  )
-);
-
-    res.json({ message: `Application ${status}` });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.log(error);
+
+    res.status(500).json({
+      message: error.message,
+    });
   }
 };
 export const getMyApplications = async (req, res) => {
