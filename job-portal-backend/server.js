@@ -43,15 +43,12 @@ connectDB();
 const app = express();
 
 // Middleware
-app.use(
-  cors({
-    origin: [
-      "http://localhost:5173", // Local frontend
-      process.env.CLIENT_URL,  // Vercel frontend
-    ],
-    credentials: true,
-  })
-);
+import cors from "cors";
+
+app.use(cors({
+  origin: "https://your-vercel-app.vercel.app",
+  credentials: true,
+}));
 
 app.use(express.json());
 
