@@ -33,7 +33,7 @@
 //           {/* Company Logo */}
 //           {job.companyLogo && (
 //             <img
-//               src={`http://localhost:5000${job.companyLogo}`}
+//               src={`http://job-portal-backend-asg7.onrender.com${job.companyLogo}`}
 //               alt="Company Logo"
 //               style={{
 //                 width: "60px",
@@ -182,7 +182,7 @@
 //         <div className="job-card" key={job._id}>
 //           {job.companyLogo && (
 //             <img
-//               src={`http://localhost:5000${job.companyLogo}`}
+//               src={`http://job-portal-backend-asg7.onrender.com${job.companyLogo}`}
 //               alt="Company Logo"
 //               style={{
 //                 width: "60px",
@@ -355,7 +355,7 @@ function JobList({ filters }) {
     <div className="job-logo">
       {job.companyLogo ? (
         <img
-          src={`http://localhost:5000${job.companyLogo}`}
+          src={`http://job-portal-backend-asg7.onrender.com${job.companyLogo}`}
           alt="Company"
         />
       ) : (

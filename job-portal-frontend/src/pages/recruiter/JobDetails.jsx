@@ -76,7 +76,7 @@
 
 //           <div className="d-flex align-items-center gap-2">
 //             <a
-//               href={`http://localhost:5000${app.resume}`}
+//               href={`http://job-portal-backend-asg7.onrender.com${app.resume}`}
 //               target="_blank"
 //               rel="noopener noreferrer"
 //               className="btn btn-sm btn-outline-primary"
@@ -212,7 +212,7 @@ function JobDetails({ jobId, onBack }) {
   //             className="btn btn-sm btn-outline-primary"
   //             onClick={() =>
   //               setSelectedResume(
-  //                 `http://localhost:5000${app.resume}`
+  //                 `http://job-portal-backend-asg7.onrender.com${app.resume}`
   //               )
   //             }
   //           >
@@ -364,7 +364,7 @@ function JobDetails({ jobId, onBack }) {
           <button
             className="jobdetails-preview-btn"
             onClick={() =>
-              setSelectedResume(`http://localhost:5000${app.resume}`)
+              setSelectedResume(`http://job-portal-backend-asg7.onrender.com${app.resume}`)
             }
           >
             Preview Resume

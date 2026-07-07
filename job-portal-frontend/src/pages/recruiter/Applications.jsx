@@ -55,7 +55,7 @@
 //               className="btn btn-sm btn-outline-primary"
 //               onClick={() =>
 //                 setSelectedResume(
-//                   `http://localhost:5000${app.resume}`
+//                   `http://job-portal-backend-asg7.onrender.com${app.resume}`
 //                 )
 //               }
 //             >
@@ -241,7 +241,7 @@ function Applications() {
   //             className="btn btn-sm btn-outline-primary"
   //             onClick={() =>
   //               setSelectedResume(
-  //                 `http://localhost:5000${app.resume}`
+  //                 `http://job-portal-backend-asg7.onrender.com${app.resume}`
   //               )
   //             }
   //           >
@@ -376,7 +376,7 @@ function Applications() {
               className="apps-preview-btn"
               onClick={() =>
                 setSelectedResume(
-                  `http://localhost:5000${app.resume}`
+                  `http://job-portal-backend-asg7.onrender.com${app.resume}`
                 )
               }
             >

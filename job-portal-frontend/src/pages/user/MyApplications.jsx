@@ -50,7 +50,7 @@
 //             </span>
 
 //             <a
-//               href={`http://localhost:5000${app.resume}`}
+//               href={`http://job-portal-backend-asg7.onrender.com${app.resume}`}
 //               target="_blank"
 //               rel="noopener noreferrer"
 //               className="btn btn-sm btn-outline-primary"
@@ -154,7 +154,7 @@
 //               className="btn btn-sm btn-outline-primary"
 //               onClick={() =>
 //                 setSelectedResume(
-//                   `http://localhost:5000${app.resume}`
+//                   `http://job-portal-backend-asg7.onrender.com${app.resume}`
 //                 )
 //               }
 //             >
@@ -282,7 +282,7 @@ function MyApplications() {
               className="resume-preview-btn"
               onClick={() =>
                 setSelectedResume(
-                  `http://localhost:5000${app.resume}`
+                  `http://job-portal-backend-asg7.onrender.com${app.resume}`
                 )
               }
             >
