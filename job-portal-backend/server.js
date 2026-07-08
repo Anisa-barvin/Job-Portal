@@ -45,10 +45,15 @@ const app = express();
 // Middleware
 import cors from "cors";
 
-app.use(cors({
-  origin: "https://your-vercel-app.vercel.app",
-  credentials: true,
-}));
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "https://job-portal-sandy-zeta.vercel.app",
+    ],
+    credentials: true,
+  })
+);
 
 app.use(express.json());
 
